@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {AddButton} from '../../styled/Button';
 
-
-function Button() {
+function Button(props) {
   return (
-    <AddButton>+</AddButton>
+    <>
+    <AddButton onClick={props.onClick}>+</AddButton>
+    </>
   )
 }
 
-export default Button
+export default Button;

@@ -1,17 +1,17 @@
 import React from "react";
-import { InputCheckBox } from "../../styled/InputCheckBox";
+import { CheckBox } from "../../styled/CheckBox";
 
-function InputCheckbox(props) {
+function Checkbox(props) {
   const   {handleCheck,index} = props;
   return (
-    <div>
-      <InputCheckBox
+    <>
+      <CheckBox
         type="checkbox"
         className="checkBox"
         onChange={() => handleCheck(index)}
       />
-    </div>
+    </>
   );
 }
 
-export default InputCheckbox;
+export default Checkbox;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Navbar from "../Navbar/Navbar";
 import TodoList from "../TodoList/TodoList";
-import AddTodo from "../ButtonPosition/AddTodo";
+import ButtonWrapper from "../ButtonWrapper/ButtonWrapper";
 import { MainBody } from "../../styled/Todo";
 
 class Todo extends Component {
@@ -12,7 +12,7 @@ class Todo extends Component {
         <MainBody>
           <Navbar />
           <TodoList />
-          <AddTodo />
+          <ButtonWrapper />
         </MainBody>
       </>
     );

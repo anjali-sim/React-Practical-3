@@ -1,5 +1,5 @@
 // variable storing the names of the day
-export const dayNames = [
+export const DAYS = [
   "SUNDAY",
   "MONDAY",
   "TUESDAY",
@@ -10,7 +10,7 @@ export const dayNames = [
 ];
 
 // variable storing the names of the month
-export const monthNames = [
+export const MONTHS = [
   "January",
   "February",
   "March",
@@ -26,7 +26,7 @@ export const monthNames = [
 ];
 
 //variable to store the dummy list of items
-export const dummyList = [
+export const DUMMY_LIST = [
   "Buy new sweatshirt",
   "Begin promotional phase",
   "Read an article",

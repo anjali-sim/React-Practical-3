@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import InputCheckbox from "../InputCheckBox/InputCheckbox";
-import { dummyList } from "../../constants/dummyText";
+import Checkbox from "../Input/Checkbox";
+import { DUMMY_LIST } from "../../constants/constant";
 import { Wrapper } from "../../styled/TodoList";
 
 function TodoList() {
     
   //used useState hook to handle the checkbox
-  const [isChecked, setIsChecked] = useState(dummyList.map(() => false));
+  const [isChecked, setIsChecked] = useState(DUMMY_LIST.map(() => false));
 
   const handleCheck = (index) => {
     const newChecked = [...isChecked];
@@ -17,7 +17,7 @@ function TodoList() {
   return (
     <Wrapper>
       {/* Display style according to the checkbox whether it is checked or not */}
-      {dummyList.map((item, index) => {
+      {DUMMY_LIST.map((item, index) => {
         const style = {
           color: isChecked[index] ? "lightgrey" : "black",
         };
@@ -25,18 +25,21 @@ function TodoList() {
           <div className="list-items-body" key={index}>
             {/* For displaying the list items */}
             <div className="list-item">
+            
               <p className="list-style" style={style} onClick={() => handleCheck(index)}>
                 {item}
               </p>
             </div>
             {/* For displaying the checkboxes */}
             <div className="list-check">
-              <InputCheckbox handleCheck={()=>handleCheck(index)}  index={index}/>
+              <Checkbox handleCheck={()=>handleCheck(index)}  index={index}/>
             </div>
           </div>
+          
         );
       })}
     </Wrapper>
+
   );
 }
 

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import checkbox from '../assets/images/checkbox.ico';
 
 // style for the input checkbox
-export const InputCheckBox = styled.input`
+export const CheckBox = styled.input`
     appearance: none;
     border: 2px solid rgb(209, 207, 207);
     border-radius: 50%;

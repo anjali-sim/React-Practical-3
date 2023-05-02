@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
 // style for the button position
-export const RelativeBlock = styled.div`
+export const RelativePosition = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
 `;
 
-export const AbsoluteBlock = styled.div`
+export const AbsolutePosition = styled.div`
   position: absolute;
   display: flex;
   justify-content: center;
