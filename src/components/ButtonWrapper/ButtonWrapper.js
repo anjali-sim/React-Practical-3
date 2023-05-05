@@ -5,11 +5,26 @@ import { AbsolutePosition, RelativePosition } from "../../styled/ButtonWrapper";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// For adding the Plus(+) button at the bottom
 function ButtonWrapper(props) {
   const [input, setInput] = useState("");
+  const [showInput, setShowInput] = useState(false);
   const [items, setItems] = useState([]);
   const [fontSize, setFontSize] = useState(16);
+
+  // Load items from local storage when the component mounts
+  useEffect(() => {
+    const todoListItems = JSON.parse(localStorage.getItem("todoListItems"));
+    const storedDate = localStorage.getItem("todoListDate");
+    const currentDate = new Date().toLocaleDateString();
+
+    if (todoListItems && storedDate === currentDate) {
+      setItems(todoListItems);
+      props.setTodoItem(todoListItems);
+    } else {
+      localStorage.removeItem("todoListItems");
+      localStorage.removeItem("todoListDate");
+    }
+  }, [props.todoListItems]);
 
   // Handle the "Escape" key to hide the input field
   useEffect(() => {
@@ -29,7 +44,6 @@ function ButtonWrapper(props) {
     setShowInput(true);
   };
 
-  // For storing the list items in local storage
   useEffect(() => {
     if (items.length !== 0) {
       localStorage.setItem("todoListItems", JSON.stringify(items));
