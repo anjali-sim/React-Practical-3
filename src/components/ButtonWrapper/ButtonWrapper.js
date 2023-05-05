@@ -40,6 +40,13 @@ function ButtonWrapper(props) {
     } else {
       setInput(value);
     }
+
+    const valueLength = event.target.value.length;
+    if (valueLength > 10) {
+      setFontSize(12);
+    } else {
+      setFontSize(16);
+    }
   };
 
   return (
@@ -47,7 +54,12 @@ function ButtonWrapper(props) {
       <RelativePosition>
         <AbsolutePosition>
           {showInput ? (
-            <Input type="text" value={input} onChange={handleOnInput} />
+            <Input
+              type="text"
+              value={input}
+              onChange={handleOnInput}
+              fontSize={fontSize}
+            />
           ) : (
             <Button onClick={handleButton} />
           )}
