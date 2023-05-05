@@ -1,4 +1,3 @@
-import "./App.css";
 import Todo from "./components/Todo/Todo";
 import GlobalStyle from "./styled/GlobalStyle";
 
