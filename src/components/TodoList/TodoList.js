@@ -8,16 +8,18 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function TodoList() {
-  //used useState hook to handle the checkbox
+  // used useState hook to handle the checkbox
   const [isChecked, setIsChecked] = useState(LIST.map(() => false));
   const [todoItem, setTodoItem] = useState([]);
 
+  // to check whether a particular list item is checked based on the id
   const handleCheck = (id) => {
     const newChecked = [...isChecked];
     newChecked[id] = !isChecked[id];
     setIsChecked(newChecked);
 
     if (!isChecked[id]) {
+      // success toast notification
       toast.success("Task Completed!", {
         position: "top-center",
         autoClose: 3000,
@@ -29,7 +31,8 @@ function TodoList() {
         theme: "dark",
       });
     } else {
-      toast.error("Task Incomplete!", {
+      // information toast notification
+      toast.info("Task Incomplete!", {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: false,
@@ -42,9 +45,11 @@ function TodoList() {
     }
   };
 
+  // for handling lottie animation
   const lottieContainer = useRef(null);
   const animationInstance = useRef(null);
 
+  // handle lottie animation to show empty list
   useEffect(() => {
     animationInstance.current = lottie.loadAnimation({
       container: lottieContainer.current,

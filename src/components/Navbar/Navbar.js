@@ -2,8 +2,8 @@ import React from "react";
 import { Wrapper } from "../../styled/NavBar";
 import { date, day, shortMonth, year } from "../../utils/date";
 
+// function for displaying the navigation bar using its styled component
 function Navbar() {
-  //variable for displaying the current date
   return (
     <>
       <Wrapper>

@@ -6,12 +6,16 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function ButtonWrapper(props) {
+  // used state to handle input text
   const [input, setInput] = useState("");
+  // used state to show the input based on the condition to show button or input text field
   const [showInput, setShowInput] = useState(false);
+  // used state to store the items in the array
   const [items, setItems] = useState([]);
+  // used state to set font size in the input text field
   const [fontSize, setFontSize] = useState(16);
 
-  // Load items from local storage when the component mounts
+  // load items from local storage when the component mounts
   useEffect(() => {
     const todoListItems = JSON.parse(localStorage.getItem("todoListItems"));
     const storedDate = localStorage.getItem("todoListDate");
@@ -26,7 +30,7 @@ function ButtonWrapper(props) {
     }
   }, [props.todoListItems]);
 
-  // Handle the "Escape" key to hide the input field
+  // handle the 'Escape' key to hide the input field
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape" && showInput) {
@@ -39,11 +43,12 @@ function ButtonWrapper(props) {
     };
   }, [showInput]);
 
-  // Handle button click to show the input field
+  // handle button click to show the input field
   const handleButton = (event) => {
     setShowInput(true);
   };
 
+  // store list items in the local storage
   useEffect(() => {
     if (items.length !== 0) {
       localStorage.setItem("todoListItems", JSON.stringify(items));
@@ -51,7 +56,7 @@ function ButtonWrapper(props) {
     }
   }, [items]);
 
-  // Handle input change and submission
+  // handle input change and submission of it
   const handleOnInput = (event) => {
     const value = event.target.value;
     if (event.key === "Enter" && value) {
@@ -62,7 +67,7 @@ function ButtonWrapper(props) {
       localStorage.setItem("todoListItems", JSON.stringify(updatedItems));
       localStorage.setItem("todoListDate", new Date().toLocaleDateString());
       props.setTodoItem(updatedItems);
-
+      // success toast notification
       toast.success("Task Added Successfully!", {
         position: "top-center",
         autoClose: 3000,
@@ -74,6 +79,7 @@ function ButtonWrapper(props) {
         theme: "dark",
       });
     } else if (event.key === "Enter") {
+      // error toast notification
       toast.error("Please Enter Something!", {
         position: "top-center",
         autoClose: 3000,
@@ -88,6 +94,7 @@ function ButtonWrapper(props) {
       setInput(value);
     }
 
+    // For setting the font size based on the length
     const valueLength = event.target.value.length;
     if (valueLength > 10) {
       setFontSize(12);
@@ -100,6 +107,7 @@ function ButtonWrapper(props) {
     <>
       <RelativePosition>
         <AbsolutePosition>
+          {/* Conditional rendering to show input text field and button */}
           {showInput ? (
             <Input
               type="text"

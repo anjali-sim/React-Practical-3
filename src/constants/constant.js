@@ -25,5 +25,5 @@ export const MONTHS = [
   "December",
 ];
 
-//variable to store the dummy list of items
+//variable to store the list of items
 export const LIST = [];
