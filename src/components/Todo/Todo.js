@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import TodoList from "../TodoList/TodoList";
-import ButtonWrapper from "../ButtonWrapper/ButtonWrapper";
 import { MainBody } from "../../styled/Todo";
 
 class Todo extends Component {
@@ -12,7 +11,6 @@ class Todo extends Component {
         <MainBody>
           <Navbar />
           <TodoList />
-          <ButtonWrapper />
         </MainBody>
       </>
     );
