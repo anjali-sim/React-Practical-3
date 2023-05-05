@@ -1,19 +1,25 @@
 import styled from "styled-components";
 
-// style for the navigation bar
-export const Wrapper = styled.section`
+// Style for the navigation bar
+export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: sticky;
+  top: 0px;
+  background-color: white;
+  z-index:1;
 
   .Nav-body {
     display: flex;
     justify-content: space-between;
     width: 100vh;
+    background-color: white;
   }
 
   .style {
     align-items: start;
+    background-color: white;
   }
 
   .date-body {
@@ -32,6 +38,8 @@ export const Wrapper = styled.section`
     font-size: 16px;
     padding-top: 22px;
     padding-right: 40px;
+    background-color:white;
+
   }
 
   .month-style {
@@ -68,14 +76,14 @@ export const Wrapper = styled.section`
     .year-style {
       font-size: 13px;
     }
-    @media (max-width: 330px) {
-        .month-style {
-            margin-top:12px;
-          }
-      
-          .year-style {
-            padding-top: 2px;
-    }
 
+  @media (max-width: 330px) {
+    .month-style {
+      margin-top:12px;
+    }
+      
+    .year-style {
+      padding-top: 2px;
+    }
   }
 `;

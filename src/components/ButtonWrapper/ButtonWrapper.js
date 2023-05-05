@@ -4,7 +4,6 @@ import { AbsolutePosition, RelativePosition } from "../../styled/ButtonWrapper";
 
 // For adding the Plus(+) button at the bottom
 function ButtonWrapper() {
-
   return (
     <>
       <RelativePosition>

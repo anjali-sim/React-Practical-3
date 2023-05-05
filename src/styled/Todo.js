@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-// style for the main content of the list
+// Style for the main content of the list
 export const MainBody = styled.div`
   justify-content: center;
   align-items: center;
@@ -8,6 +8,14 @@ export const MainBody = styled.div`
   text-align: center;
   width: 400px;
   height: 580px;
+
+  @media (max-height: 650px) {
+    height: 550px;
+  }
+
+  @media (max-height: 560px) {
+    height: 500px;
+  }
 
   @media (max-width: 400px) {
     width: 370px;
@@ -29,7 +37,7 @@ export const MainBody = styled.div`
   @media (max-width: 325px) {
     width: 310px;
   }
-  
+
   @media (max-width: 310px) {
     width: 285px;
   }

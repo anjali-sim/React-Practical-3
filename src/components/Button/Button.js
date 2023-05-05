@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
-import {AddButton} from '../../styled/Button';
+import React from "react";
+import { AddButton } from "../../styled/Button";
 
 function Button(props) {
+  const { onClick } = props;
   return (
     <>
-    <AddButton onClick={props.onClick}>+</AddButton>
+      <AddButton onClick={onClick}>+</AddButton>
     </>
-  )
+  );
 }
 
 export default Button;

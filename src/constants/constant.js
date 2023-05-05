@@ -26,12 +26,4 @@ export const MONTHS = [
 ];
 
 //variable to store the dummy list of items
-export const DUMMY_LIST = [
-  "Buy new sweatshirt",
-  "Begin promotional phase",
-  "Read an article",
-  "Try not to fall asleep",
-  'Watch "Sherlock"',
-  "Begin QA for the product",
-  "Go for a walk",
-];
+export const LIST = [];
