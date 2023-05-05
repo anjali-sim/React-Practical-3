@@ -1,5 +1,6 @@
 import React from "react";
 import { InputStyle } from "../../styled/InputStyle";
+import PropTypes from "prop-types";
 
 function Input(props) {
   const { fontSize, value, onChange } = props;
@@ -16,5 +17,11 @@ function Input(props) {
     </>
   );
 }
+
+Input.propTypes = {
+  fontSize: PropTypes.number,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+};
 
 export default Input;
