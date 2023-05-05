@@ -1,18 +1,45 @@
-import React, { useState, useRef, useEffect } from "react";
-import Checkbox from "../Input/Checkbox";
+import React, { useEffect, useRef, useState } from "react";
+import Checkbox from "../CheckBox/Checkbox";
 import { LIST } from "../../constants/constant";
 import { Wrapper, Wrap } from "../../styled/TodoList";
 import ButtonWrapper from "../ButtonWrapper/ButtonWrapper";
 import lottie from "lottie-web";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function TodoList() {
   //used useState hook to handle the checkbox
   const [isChecked, setIsChecked] = useState(LIST.map(() => false));
+  const [todoItem, setTodoItem] = useState([]);
 
   const handleCheck = (id) => {
     const newChecked = [...isChecked];
     newChecked[id] = !isChecked[id];
     setIsChecked(newChecked);
+
+    if (!isChecked[id]) {
+      toast.success("Task Completed!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    } else {
+      toast.error("Task Incomplete!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
   };
 
   const lottieContainer = useRef(null);
