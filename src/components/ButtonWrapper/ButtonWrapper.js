@@ -7,6 +7,7 @@ import { AbsolutePosition, RelativePosition } from "../../styled/ButtonWrapper";
 function ButtonWrapper(props) {
   const [input, setInput] = useState("");
   const [items, setItems] = useState([]);
+  const [fontSize, setFontSize] = useState(16);
 
   // Handle the "Escape" key to hide the input field
   useEffect(() => {
@@ -26,6 +27,14 @@ function ButtonWrapper(props) {
     setShowInput(true);
   };
 
+  // For storing the list items in local storage
+  useEffect(() => {
+    if (items.length !== 0) {
+      localStorage.setItem("todoListItems", JSON.stringify(items));
+      localStorage.setItem("todoListDate", new Date().toLocaleDateString());
+    }
+  }, [items]);
+
   // Handle input change and submission
   const handleOnInput = (event) => {
     const value = event.target.value;
@@ -34,6 +43,8 @@ function ButtonWrapper(props) {
       setItems(updatedItems);
       setInput("");
       setShowInput(false);
+      localStorage.setItem("todoListItems", JSON.stringify(updatedItems));
+      localStorage.setItem("todoListDate", new Date().toLocaleDateString());
       props.setTodoItem(updatedItems);
     } else if (event.key === "Enter") {
       alert("Please Enter Something!");
