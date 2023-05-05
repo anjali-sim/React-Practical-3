@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Button from "../Button/Button";
 import Input from "../InputText/Input";
 import { AbsolutePosition, RelativePosition } from "../../styled/ButtonWrapper";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // For adding the Plus(+) button at the bottom
 function ButtonWrapper(props) {
@@ -46,8 +48,28 @@ function ButtonWrapper(props) {
       localStorage.setItem("todoListItems", JSON.stringify(updatedItems));
       localStorage.setItem("todoListDate", new Date().toLocaleDateString());
       props.setTodoItem(updatedItems);
+
+      toast.success("Task Added Successfully!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     } else if (event.key === "Enter") {
-      alert("Please Enter Something!");
+      toast.error("Please Enter Something!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     } else {
       setInput(value);
     }
