@@ -4,6 +4,12 @@ import Input from "../InputText/Input";
 import { AbsolutePosition, RelativePosition } from "../../styled/ButtonWrapper";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  loadItemsFromLocalStorage,
+  saveItemsToLocalStorage,
+  removeItemsFromLocalStorage,
+  getCurrentDate,
+} from "../../services/storageService";
 
 function ButtonWrapper(props) {
   // used state to handle input text
@@ -15,18 +21,18 @@ function ButtonWrapper(props) {
   // used state to set font size in the input text field
   const [fontSize, setFontSize] = useState(16);
 
-  // load items from local storage when the component mounts
-  useEffect(() => {
-    const todoListItems = JSON.parse(localStorage.getItem("todoListItems"));
+  // load items from local storage from services
+  uuseEffect(() => {
+    const todoListItems = loadItemsFromLocalStorage("todoListItems");
     const storedDate = localStorage.getItem("todoListDate");
-    const currentDate = new Date().toLocaleDateString();
+    const currentDate = getCurrentDate();
 
     if (todoListItems && storedDate === currentDate) {
       setItems(todoListItems);
       props.setTodoItem(todoListItems);
     } else {
-      localStorage.removeItem("todoListItems");
-      localStorage.removeItem("todoListDate");
+      removeItemsFromLocalStorage("todoListItems");
+      removeItemsFromLocalStorage("todoListDate");
     }
   }, [props.todoListItems]);
 
@@ -48,11 +54,11 @@ function ButtonWrapper(props) {
     setShowInput(true);
   };
 
-  // store list items in the local storage
+  // store list items in the local storage from services
   useEffect(() => {
     if (items.length !== 0) {
-      localStorage.setItem("todoListItems", JSON.stringify(items));
-      localStorage.setItem("todoListDate", new Date().toLocaleDateString());
+      saveItemsToLocalStorage("todoListItems", items);
+      saveItemsToLocalStorage("todoListDate", getCurrentDate());
     }
   }, [items]);
 
@@ -64,8 +70,8 @@ function ButtonWrapper(props) {
       setItems(updatedItems);
       setInput("");
       setShowInput(false);
-      localStorage.setItem("todoListItems", JSON.stringify(updatedItems));
-      localStorage.setItem("todoListDate", new Date().toLocaleDateString());
+      saveItemsToLocalStorage("todoListItems", updatedItems);
+      saveItemsToLocalStorage("todoListDate", getCurrentDate());
       props.setTodoItem(updatedItems);
       // success toast notification
       toast.success("Task Added Successfully!", {
