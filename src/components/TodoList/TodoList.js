@@ -8,18 +8,21 @@ import { showInformationToast, showSuccessToast } from "../../utils/toast";
 import { ListCheck } from "../../styled/CheckBox";
 
 function TodoList() {
-  // used useState hook to handle the checkbox
-  const [isChecked, setIsChecked] = useState(LIST.map(() => false));
-  const [todoItem, setTodoItem] = useState([]);
-  // for handling lottie animation
-  const lottieContainer = useRef(null);
-  const animationInstance = useRef(null);
+  const [todoState, setTodoState] = useState({
+    isChecked: LIST.map(() => false),
+    todoItem: [],
+  });
+
+  const { isChecked, todoItem } = todoState;
 
   // to check whether a particular list item is checked based on the id
   const handleCheck = (id) => {
     const newChecked = [...isChecked];
     newChecked[id] = !isChecked[id];
-    setIsChecked(newChecked);
+    setTodoState({
+      ...todoState,
+      isChecked: newChecked,
+    });
 
     if (!isChecked[id]) {
       // success toast notification
@@ -30,6 +33,9 @@ function TodoList() {
     }
   };
 
+  // for handling lottie animation
+  const lottieContainer = useRef(null);
+  const animationInstance = useRef(null);
   // handle lottie animation to show empty list
   useEffect(() => {
     animationInstance.current = lottie.loadAnimation({
@@ -70,7 +76,11 @@ function TodoList() {
             );
           })
         )}
-        <ButtonWrapper setTodoItem={setTodoItem} />
+        <ButtonWrapper
+          setTodoItem={(items) =>
+            setTodoState({ ...todoState, todoItem: items })
+          }
+        />
       </Wrapper>
     </Wrap>
   );
