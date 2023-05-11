@@ -2,14 +2,10 @@ import React, { useEffect, useState } from "react";
 import Button from "../Button/Button";
 import Input from "../InputText/Input";
 import { AbsolutePosition, RelativePosition } from "../../styled/ButtonWrapper";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import {
-  loadItemsFromLocalStorage,
-  saveItemsToLocalStorage,
-  removeItemsFromLocalStorage,
-  getCurrentDate,
-} from "../../services/storageService";
+import { getLocalStorage, setLocalStorage } from "../../services/Storage";
+import { getCurrentDate } from "../../utils/date";
+import { getExpiryDate, setExpiryDate } from "../../services/dateStorage";
+import { showErrorToast, showSuccessToast } from "../../utils/toast";
 
 function ButtonWrapper(props) {
   // used state to handle input text
@@ -22,19 +18,17 @@ function ButtonWrapper(props) {
   const [fontSize, setFontSize] = useState(16);
 
   // load items from local storage from services
-  uuseEffect(() => {
-    const todoListItems = loadItemsFromLocalStorage("todoListItems");
-    const storedDate = localStorage.getItem("todoListDate");
+  useEffect(() => {
+    const todoListItems = getLocalStorage("todoListItems");
     const currentDate = getCurrentDate();
+    setItems(todoListItems);
+    props.setTodoItem(todoListItems);
+    let expiryDate = getExpiryDate();
 
-    if (todoListItems && storedDate === currentDate) {
-      setItems(todoListItems);
-      props.setTodoItem(todoListItems);
-    } else {
-      removeItemsFromLocalStorage("todoListItems");
-      removeItemsFromLocalStorage("todoListDate");
+    if (expiryDate !== currentDate) {
+      localStorage.clear();
     }
-  }, [props.todoListItems]);
+  }, []);
 
   // handle the 'Escape' key to hide the input field
   useEffect(() => {
@@ -57,8 +51,7 @@ function ButtonWrapper(props) {
   // store list items in the local storage from services
   useEffect(() => {
     if (items.length !== 0) {
-      saveItemsToLocalStorage("todoListItems", items);
-      saveItemsToLocalStorage("todoListDate", getCurrentDate());
+      setLocalStorage("todoListItems", items);
     }
   }, [items]);
 
@@ -70,40 +63,24 @@ function ButtonWrapper(props) {
       setItems(updatedItems);
       setInput("");
       setShowInput(false);
-      saveItemsToLocalStorage("todoListItems", updatedItems);
-      saveItemsToLocalStorage("todoListDate", getCurrentDate());
+      setLocalStorage("todoListItems", updatedItems);
+      if (getExpiryDate() === null) {
+        setExpiryDate(getCurrentDate());
+      }
       props.setTodoItem(updatedItems);
       // success toast notification
-      toast.success("Task Added Successfully!", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      showSuccessToast("Task Added Successfully!");
     } else if (event.key === "Enter") {
       // error toast notification
-      toast.error("Please Enter Something!", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      showErrorToast("Please Enter Something!");
     } else {
       setInput(value);
     }
 
     // For setting the font size based on the length
     const valueLength = event.target.value.length;
-    if (valueLength > 10) {
-      setFontSize(12);
+    if (valueLength > 50) {
+      setFontSize(14);
     } else {
       setFontSize(16);
     }

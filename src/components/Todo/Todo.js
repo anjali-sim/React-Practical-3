@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import Navbar from "../Navbar/Navbar";
 import TodoList from "../TodoList/TodoList";
 import { MainBody } from "../../styled/Todo";

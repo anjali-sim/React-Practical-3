@@ -11,5 +11,5 @@ export const AbsolutePosition = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
-  top:100%;
+  top: 100%;
 `;
