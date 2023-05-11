@@ -24,3 +24,8 @@ export const CheckBox = styled.input`
     width: 25px;
   }
 `;
+
+// Style to apply to a list item based on the checkbox
+export const ListCheck = styled.p`
+  color: ${(props) => (props.isChecked ? "lightgrey" : "black")};
+`;

@@ -5,11 +5,7 @@ import PropTypes from "prop-types";
 // function for the button that is present at bottom
 function Button(props) {
   const { onClick } = props;
-  return (
-    <>
-      <AddButton onClick={onClick}>+</AddButton>
-    </>
-  );
+  return <AddButton onClick={onClick}>+</AddButton>;
 }
 
 Button.propTypes = {

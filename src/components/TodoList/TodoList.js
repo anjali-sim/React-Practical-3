@@ -4,13 +4,16 @@ import { LIST } from "../../constants/constant";
 import { Wrapper, Wrap } from "../../styled/TodoList";
 import ButtonWrapper from "../ButtonWrapper/ButtonWrapper";
 import lottie from "lottie-web";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { showInformationToast, showSuccessToast } from "../../utils/toast";
+import { ListCheck } from "../../styled/CheckBox";
 
 function TodoList() {
   // used useState hook to handle the checkbox
   const [isChecked, setIsChecked] = useState(LIST.map(() => false));
   const [todoItem, setTodoItem] = useState([]);
+  // for handling lottie animation
+  const lottieContainer = useRef(null);
+  const animationInstance = useRef(null);
 
   // to check whether a particular list item is checked based on the id
   const handleCheck = (id) => {
@@ -20,34 +23,12 @@ function TodoList() {
 
     if (!isChecked[id]) {
       // success toast notification
-      toast.success("Task Completed!", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      showSuccessToast("Task Completed!");
     } else {
       // information toast notification
-      toast.info("Task Incomplete!", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      showInformationToast("Task Incomplete!");
     }
   };
-
-  // for handling lottie animation
-  const lottieContainer = useRef(null);
-  const animationInstance = useRef(null);
 
   // handle lottie animation to show empty list
   useEffect(() => {
@@ -70,24 +51,20 @@ function TodoList() {
           <div className="container" ref={lottieContainer} />
         ) : (
           todoItem.map((item, id) => {
-            const style = {
-              color: isChecked[id] ? "lightgrey" : "black",
-            };
             return (
               <div className="list-items-body" key={id}>
                 {/* For displaying the list items */}
                 <div className="list-item">
-                  <p
-                    className="list-style"
-                    style={style}
+                  <ListCheck
+                    isChecked={isChecked[id]}
                     onClick={() => handleCheck(id)}
                   >
                     {item}
-                  </p>
+                  </ListCheck>
                 </div>
                 {/* For displaying the checkboxes */}
                 <div className="list-check">
-                  <Checkbox handleCheck={() => handleCheck(id)} id={id} />
+                  <Checkbox onChange={() => handleCheck(id)} />
                 </div>
               </div>
             );
